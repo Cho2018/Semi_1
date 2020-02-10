@@ -3,11 +3,14 @@ package com.example.semi_1.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.semi_1.DB.SharedPreferenceController
 import com.example.semi_1.Adapter.ProductMainPagerAdapter
+import com.example.semi_1.Adapter.SliderMainPagerAdapter
 import com.example.semi_1.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_main.*
@@ -59,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         tl_main_category.getTabAt(2)!!.customView = navCategoryMainLayout.
             findViewById(R.id.rl_nav_category_main_end) as RelativeLayout
 
-        /*vp_main_slider.adapter = SliderMainPagerAdapter(supportFragmentManager, 3)
+        vp_main_slider.adapter = SliderMainPagerAdapter(supportFragmentManager, 3)
         vp_main_slider.offscreenPageLimit = 2
         tl_main_indicator.setupWithViewPager(vp_main_slider)
 
@@ -74,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 
         tl_main_indicator.isEnabled = true
 
-        tl_main_indicator.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+        tl_main_indicator.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(p0: TabLayout.Tab?) {
             }
 
@@ -85,6 +88,6 @@ class MainActivity : AppCompatActivity() {
             override fun onTabSelected(p0: TabLayout.Tab?) {
                 p0!!.customView!!.setBackgroundColor(resources.getColor(R.color.colorPrimaryDarkYellow))
             }
-        })*/
+        })
     }
 }

@@ -33,7 +33,7 @@ class ProductMainPagerAdapter(fm: FragmentManager, private val num_fragment: Int
     }
 
     override fun getItem(p0: Int): Fragment? {
-        return when(p0){
+        return when(p0) {
             0 -> AllProductMainFragment()
             1 -> NewProductMainFragment()
             2 -> EndProductMainFragment()
