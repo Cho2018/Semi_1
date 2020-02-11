@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         configureTitleBar()
         configureMainTab()
 
-        txt_toolbar_main_action.setOnClickListener {
+        img_toolbar_main_action.setOnClickListener {
             if(SharedPreferenceController.getUserID(this).isEmpty()) {
                 val intent: Intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
@@ -42,9 +42,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun configureTitleBar() {
         if(SharedPreferenceController.getUserID(this).isEmpty()) {
-            txt_toolbar_main_action.text = "로그인"
+            img_toolbar_main_action.isSelected = false
         } else {
-            txt_toolbar_main_action.text = "로그아웃"
+            img_toolbar_main_action.isSelected = true
         }
    }
 
@@ -65,29 +65,5 @@ class MainActivity : AppCompatActivity() {
         vp_main_slider.adapter = SliderMainPagerAdapter(supportFragmentManager, 3)
         vp_main_slider.offscreenPageLimit = 2
         tl_main_indicator.setupWithViewPager(vp_main_slider)
-
-        val navIndicatorMainLayout: View = (this.getSystemService(android.content.Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
-            .inflate(R.layout.navigation_indicator_main, null, false)
-        tl_main_indicator.getTabAt(0)!!.customView = navIndicatorMainLayout.
-            findViewById(R.id.img_nav_indicator_main_1) as ImageView
-        tl_main_indicator.getTabAt(1)!!.customView = navIndicatorMainLayout.
-            findViewById(R.id.img_nav_indicator_main_2) as ImageView
-        tl_main_indicator.getTabAt(2)!!.customView = navIndicatorMainLayout.
-            findViewById(R.id.img_nav_indicator_main_3) as ImageView
-
-        tl_main_indicator.isEnabled = true
-
-        tl_main_indicator.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(p0: TabLayout.Tab?) {
-            }
-
-            override fun onTabUnselected(p0: TabLayout.Tab?) {
-                p0!!.customView!!.setBackgroundColor(resources.getColor(R.color.colorGray))
-            }
-
-            override fun onTabSelected(p0: TabLayout.Tab?) {
-                p0!!.customView!!.setBackgroundColor(resources.getColor(R.color.colorPrimaryDarkYellow))
-            }
-        })
     }
 }

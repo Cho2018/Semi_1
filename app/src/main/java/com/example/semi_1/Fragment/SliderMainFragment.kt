@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 
 import com.example.semi_1.R
 import kotlinx.android.synthetic.main.fragment_slider_main.*
@@ -32,7 +33,10 @@ class SliderMainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val color:Int = arguments!!.getInt("background_color")
-        img_fragment_slider_main.setBackgroundColor(color)
+        val img_url:String = arguments!!.getString("background_url")
+
+        Glide.with(this)
+            .load(img_url)
+            .into(img_fragment_slider_main)
     }
 }
