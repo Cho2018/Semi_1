@@ -14,6 +14,10 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:usesCleartextTraffic="true">
+        <activity android:name=".Activity.WebtoonActivity">
+        </activity>
+        <activity android:name=".Activity.CommentActivity">
+        </activity>
         <activity android:name=".Activity.ProductActivity">
         </activity>
         <activity android:name=".Activity.SignupActivity">
