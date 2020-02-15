@@ -32,7 +32,7 @@ class EpisodeOverviewRecyclerViewAdapter(val ctx: Context, val dataList: ArrayLi
         holder.container.setOnClickListener {
             ctx.startActivity<WebtoonActivity>(
                 "title" to dataList[position].title,
-                "product_id" to dataList[position].product_id,
+                "idx" to dataList[position].product_id,
                 "episode_id" to dataList[position].episode_id)
         }
     }

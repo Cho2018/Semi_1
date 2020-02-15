@@ -24,15 +24,15 @@ class ProductOverviewRecyclerViewAdapter(var ctx: Context, var dataList: ArrayLi
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         Glide.with(ctx)
-            .load(dataList[position].img_url)
+            .load(dataList[position].thumbnail)
             .into(holder.img_thumbnail)
         holder.title.text = dataList[position].title
-        holder.num_like.text = "♥" + dataList[position].num_like.toString()
-        holder.author.text = dataList[position].author
+        holder.num_like.text = "♥" + dataList[position].likes.toString()
+        holder.author.text = dataList[position].name
 
         holder.container.setOnClickListener {
             ctx.startActivity<ProductActivity>(
-                "product_id" to dataList[position].product_id,
+                "idx" to dataList[position].idx,
                 "title" to dataList[position].title)
         }
     }

@@ -25,7 +25,7 @@ class ProductActivity : AppCompatActivity() {
 
     private fun configureTitleBar() {
         title = intent.getStringExtra("title")
-        product_id = intent.getIntExtra("product_id", -1)
+        product_id = intent.getIntExtra("idx", -1)
         if(product_id == -1) finish()
 
         txt_toolbar_product_title.text = title

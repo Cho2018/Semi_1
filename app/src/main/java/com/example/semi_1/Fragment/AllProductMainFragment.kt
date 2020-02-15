@@ -4,13 +4,20 @@ package com.example.semi_1.Fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.semi_1.Adapter.ProductOverviewRecyclerViewAdapter
 import com.example.semi_1.Data.ProductOverviewData
+import com.example.semi_1.Network.ApplicationController
+import com.example.semi_1.Network.Get.GetMainProductListResponse
+import com.example.semi_1.Network.NetworkService
 import com.example.semi_1.R
 import kotlinx.android.synthetic.main.fragment_all_product_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,6 +30,10 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class AllProductMainFragment : Fragment() {
+
+    val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
 
     lateinit var productOverviewRecyclerViewAdapter: ProductOverviewRecyclerViewAdapter
 
@@ -39,7 +50,7 @@ class AllProductMainFragment : Fragment() {
 
         //서버 통신 예정
         var dataList: ArrayList<ProductOverviewData> = ArrayList()
-        dataList.add(ProductOverviewData(
+        /*dataList.add(ProductOverviewData(
             "http://sopt.org/wp/wp-content/uploads/2014/01/24_SOPT-LOGO_COLOR-1.png",
             0,"완결작품 1",120,"완결작가 A"))
         dataList.add(ProductOverviewData(
@@ -86,10 +97,35 @@ class AllProductMainFragment : Fragment() {
             14, "신규작품 7", 1, "신규작가 G"))
         dataList.add(ProductOverviewData(
             "http://sopt.org/wp/wp-content/uploads/2014/01/24_SOPT-LOGO_COLOR-1.png",
-            15, "신규작품 8", 1, "신규작가 H"))
+            15, "신규작품 8", 1, "신규작가 H"))*/
 
         productOverviewRecyclerViewAdapter = ProductOverviewRecyclerViewAdapter(context!!, dataList)
         rv_product_overview_all.adapter = productOverviewRecyclerViewAdapter
         rv_product_overview_all.layoutManager = GridLayoutManager(context!!, 3)
+
+        getMainProductListResponse()
+    }
+
+    private fun getMainProductListResponse() {
+        val getMainProductListResponse = networkService.getMainProductListResponse(
+            "application/json", 1)
+        getMainProductListResponse.enqueue(object: Callback<GetMainProductListResponse> {
+            override fun onFailure(call: Call<GetMainProductListResponse>, t: Throwable) {
+                Log.e("AllMainPro List Fail", t.toString())
+            }
+
+            override fun onResponse(
+                call: Call<GetMainProductListResponse>,
+                response: Response<GetMainProductListResponse>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.status == 200) {
+                        val tmp: ArrayList<ProductOverviewData> = response.body()!!.data!!
+                        productOverviewRecyclerViewAdapter.dataList = tmp
+                        productOverviewRecyclerViewAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        })
     }
 }

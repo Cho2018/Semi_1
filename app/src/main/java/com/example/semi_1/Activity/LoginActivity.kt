@@ -4,15 +4,29 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.semi_1.R
 import com.example.semi_1.DB.SharedPreferenceController
+import com.example.semi_1.Network.ApplicationController
+import com.example.semi_1.Network.NetworkService
+import com.example.semi_1.Network.Post.PostLoginResponse
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_login.*
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
 class LoginActivity : AppCompatActivity() {
 
     val REQUEST_CODE_LOGIN_ACTIVITY = 1000
+
+    val networkService: NetworkService by lazy {
+        ApplicationController.instance.networkService
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +79,26 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun postLoginResponse(u_id: String, u_pw: String) {
-        SharedPreferenceController.setUserID(this, u_id)
-        finish()
+        var jsonObject = JSONObject()
+        jsonObject.put("id", u_id)
+        jsonObject.put("password", u_pw)
+
+        val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
+        val postLoginResponse: Call<PostLoginResponse> =
+            networkService.postLoginResponse("application/json", gsonObject)
+        postLoginResponse.enqueue(object: Callback<PostLoginResponse> {
+            override fun onFailure(call: Call<PostLoginResponse>, t: Throwable) {
+                Log.e("Login failed", t.toString())
+            }
+
+            override fun onResponse(call: Call<PostLoginResponse>, response: Response<PostLoginResponse>) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.status == 201) {
+                        SharedPreferenceController.setUserToken(applicationContext, response.body()!!.data!!)
+                        finish()
+                    }
+                }
+            }
+        })
     }
 }

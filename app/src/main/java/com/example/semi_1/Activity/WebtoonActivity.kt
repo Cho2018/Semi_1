@@ -21,7 +21,7 @@ class WebtoonActivity : AppCompatActivity() {
 
     private fun configureTitleBar() {
         title = intent.getStringExtra("title")
-        product_id = intent.getIntExtra("product_id", -1)
+        product_id = intent.getIntExtra("idx", -1)
         episode_id = intent.getIntExtra("episode_id", -1)
 
         if(product_id == -1 || episode_id == -1) finish()

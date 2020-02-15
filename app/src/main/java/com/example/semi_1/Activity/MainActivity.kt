@@ -3,10 +3,8 @@ package com.example.semi_1.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.semi_1.DB.SharedPreferenceController
 import com.example.semi_1.Adapter.ProductMainPagerAdapter
@@ -25,11 +23,11 @@ class MainActivity : AppCompatActivity() {
         configureMainTab()
 
         img_toolbar_main_action.setOnClickListener {
-            if(SharedPreferenceController.getUserID(this).isEmpty()) {
+            if(SharedPreferenceController.getUserToken(this).isEmpty()) {
                 val intent: Intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             } else {
-                SharedPreferenceController.clearUserID(this)
+                SharedPreferenceController.clearUserToken(this)
                 configureTitleBar()
             }
         }
@@ -41,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun configureTitleBar() {
-        if(SharedPreferenceController.getUserID(this).isEmpty()) {
+        if(SharedPreferenceController.getUserToken(this).isEmpty()) {
             img_toolbar_main_action.isSelected = false
         } else {
             img_toolbar_main_action.isSelected = true
