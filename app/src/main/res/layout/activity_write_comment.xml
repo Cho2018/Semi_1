@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activity.WriteCommentActivity">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <include
+                android:id="@+id/toolbar_write_comment"
+                layout="@layout/toolbar_write_comment"/>
+
+        <EditText
+                android:id="@+id/txt_comment_write_comment"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:gravity="top"
+                android:background="@null"
+                android:hint="여기를 눌러서 글을 작성할 수 있습니다.\n기다릴개에서 당신의 동물의 이야기를 들려주세요:)\n이미지는 최대 4장까지 첨부 가능합니다."
+                android:textSize="13dp"
+                android:textColorHint="#C4C4C4"
+                android:textColor="#484848"/>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#F1F1F1">
+            
+            <ImageView
+                    android:id="@+id/img_comment_write_roll"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:layout_marginLeft="7.5dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/writing_plus_btn"/>
+
+        </LinearLayout>
+
+        <include
+                android:id="@+id/bottom_write_comment"
+                layout="@layout/bottom_write_comment"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
