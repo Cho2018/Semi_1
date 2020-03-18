@@ -1,10 +1,10 @@
 package com.example.semi_1.Activity
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.semi_1.R
 import kotlinx.android.synthetic.main.toolbar_webtoon.*
-import org.jetbrains.anko.startActivity
 
 class WebtoonActivity : AppCompatActivity() {
 
@@ -29,7 +29,11 @@ class WebtoonActivity : AppCompatActivity() {
         txt_toolbar_webtoon_title.text = title
 
         btn_toolbar_webtoon_comment.setOnClickListener {
-            startActivity<CommentActivity>()
+            //startActivity<CommentActivity>()
+            val intent: Intent = Intent(this, CommentActivity::class.java)
+            intent.putExtra("idx", product_id)
+            intent.putExtra("episode_id", episode_id)
+            startActivity(intent)
         }
 
         btn_toolbar_webtoon_back.setOnClickListener {

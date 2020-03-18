@@ -3,11 +3,10 @@ package com.example.semi_1.Network
 import android.app.Application
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 class ApplicationController: Application() {
 
-    private val baseURL = "http://hyunjkluz.ml:2424/"
+    private val baseURL = "http://hyunjkluz.ml:2424"
     lateinit var networkService: NetworkService
 
     companion object {

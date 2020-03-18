@@ -1,5 +1,6 @@
 package com.example.semi_1.Activity
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -14,17 +15,35 @@ class CommentActivity : AppCompatActivity() {
 
     lateinit var commentRecyclerViewAdapter: CommentRecyclerViewAdpater
 
+    var product_id = -1
+    var episode_id = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment)
 
         configureTitleBar()
+        configureBottomBar()
         configureRecyclerView()
     }
 
     private fun configureTitleBar() {
         btn_toolbar_comment_back.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun configureBottomBar() {
+        product_id = intent.getIntExtra("idx", -1)
+        episode_id = intent.getIntExtra("episode_id", -1)
+
+        if(product_id == -1 || episode_id == -1) finish()
+
+        btn_comment_write.setOnClickListener {
+            val intent: Intent = Intent(this, WriteCommentActivity::class.java)
+            intent.putExtra("idx", product_id)
+            intent.putExtra("episode_id", episode_id)
+            startActivity(intent)
         }
     }
 

@@ -11,31 +11,31 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface NetworkService {
-    @POST("/api/auth/signin")
+    @POST("/auth/signin")
     fun postLoginResponse(
-        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
         @Body() body:JsonObject
     ): Call<PostLoginResponse>
 
-    @POST("/api/auth/signup")
+    @POST("/auth/signup")
     fun postSignupResponse(
-        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
         @Body() body:JsonObject
     ): Call<PostSignupResponse>
 
-    @GET("/api/webtoons/main/{flag}")
+    @GET("/webtoons/main/{flag}")
     fun getMainProductListResponse(
-        @Header("Content-Type") content_type: String,
+        @Header("token") token: String,
         @Path("flag") flag: Int
     ): Call<GetMainProductListResponse>
 
     @Multipart
-    @POST("/api/webtoons/episodes/cmts")
+    @POST("/webtoons/episodes/cmts")
     fun postCommentResponse(
         @Header("token") token: String,
 
         @Part("epIdx") epIdx: Int,
         @Part("content") content: RequestBody,
-        @Part cmtImg: MultipartBody.Part
+        @Part cmtImg: MultipartBody.Part?
     ): Call<PostCommentResponse>
 }
